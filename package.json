@@ -1,0 +1,38 @@
+{
+  "name": "rag-ingestion-pipeline",
+  "version": "0.1.0",
+  "description": "Ingestion pipeline: GitHub/GitLab/Bitbucket -> tree-sitter chunking -> embeddings -> pgvector",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p .",
+    "ingest": "tsx src/ingest.ts",
+    "migrate": "psql \"$DATABASE_URL\" -f src/db/schema.sql",
+    "retrieval:smoke-test": "tsx src/retrieval/smoke-test.ts",
+    "chunkers:java-smoke-test": "tsx src/chunkers/java-smoke-test.ts",
+    "chunkers:python-smoke-test": "tsx src/chunkers/python-smoke-test.ts",
+    "chunkers:confluence-smoke-test": "tsx src/chunkers/confluence-smoke-test.ts",
+    "graph:smoke-test": "tsx src/graph/populate-smoke-test.ts",
+    "mcp": "tsx src/mcp/server.ts"
+  },
+  "dependencies": {
+    "@gitbeaker/rest": "^43.8.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@octokit/rest": "^20.1.1",
+    "dotenv": "^16.4.5",
+    "p-limit": "^6.1.0",
+    "pg": "^8.12.0",
+    "tree-sitter": "^0.21.1",
+    "tree-sitter-java": "^0.21.0",
+    "tree-sitter-python": "^0.21.0",
+    "tree-sitter-typescript": "^0.21.2",
+    "turndown": "^7.2.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/pg": "^8.11.6",
+    "@types/turndown": "^5.0.6",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}
